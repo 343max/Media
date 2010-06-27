@@ -1,0 +1,9 @@
+- move this to an webserver (with php)
+- download Sencha Touch http://www.sencha.com/products/touch/
+- rename the whole senchat touch download folder to "sencha-touch" and move it to your root directory
+- create an "media" folder in the root directory of your webserver and put some iPad ready mp4s into it
+- rename config.sample.inc.php to config.inc.php and configure it
+- fire up index.html on your iPad
+- see the very first roots of an lovely Media Center based uppon Sencha Touch Kitchensink example
+- see how nothing happends at all, because this is just a very early not even prototype release
+- help to create the wonderfull world of tomorrow.
