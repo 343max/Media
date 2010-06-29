@@ -1,0 +1,57 @@
+ul#tvShowList {
+	margin: 0;
+	padding: 0;
+}
+
+ul#tvShowList li {
+	position: relative;
+	
+	list-style-type: none;
+	margin: 0;
+	height: 122px;
+	background-size: 659px 122px;
+	-webkit-background-size: 659px 122px;
+	padding-right: 20px;
+}
+
+ul#tvShowList li span.label {
+	position: absolute;
+	text-align: right;
+	font-size: 24px;
+	font-weight: bold;
+	bottom: 10px;
+	right: 10px;
+	text-shadow: 0 3px 8px rgba(0,0,0,0.5);
+	color: white;
+}
+
+ul#tvShowList li.active span.label {
+	display: none;
+}
+
+ul#tvShowList li table.episodes {
+	background-color: white;
+	padding: 0;
+	font-size: 18px;
+	width: 550px;
+	margin-left: auto;
+	margin-right: auto;
+	top: 10px;
+	border: 1px solid lightgrey;
+	box-shadow: 0 10px 10px rgba(0,0,0,0.5);
+	-webkit-box-shadow: 0 10px 10px rgba(0,0,0,0.5);
+
+	display: none;
+}
+
+ul#tvShowList li.active table.episodes {
+	display: block;
+}
+
+div.videoplayer {
+	position: absolute;
+	top: 30px;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: black;
+}

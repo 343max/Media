@@ -2,15 +2,28 @@
 				"http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+	<meta content="text/html;charset=UTF-8">
 	<title>Media</title>
-	<link rel="stylesheet" href="sencha-touch/resources/css/ext-touch.css">
 	<link rel="stylesheet" href="css/app.css">
-	<script type="text/javascript" src="sencha-touch/ext-touch-debug.js"></script>
-	<script type="text/javascript" src="js/cards.js"></script>
-	<script type="text/javascript" src="js/cards/movies.js"></script>
+	<link rel="stylesheet" href="css/tvshows.css">
+	<link rel="stylesheet" href="TouchScroll/src/touchscroll.css">
+	<script type="text/javascript" src="jquery-1.4.2.min.js"></script>
+	<script type="text/javascript" src="TouchScroll/dist/touchscroll.min.js"></script>
 	<script type="text/javascript" src="js/app.js"></script>
+	<script type="text/javascript" src="js/tvshows.js"></script>
 </head>
 <body>
 
+<ul id="nav">
+	<li panel="tvshows">TV Shows</li>
+	<li panel="movies">Movies</li>
+	<li panel="convert">Convert Media</li>
+	<li panel="progress">Progress</li>
+</ul>
+
+<div class="panel" id="tvshows"><ul id="tvShowList"></ul></div>
+<div class="panel" id="movies">no movies yet</div>
+<div class="panel" id="convert">nothing to convert yet</div>
+<div class="panel" id="progress">no progress to show yet</div>
 </body>
 </html>

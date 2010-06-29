@@ -1,9 +1,10 @@
 - move this to an webserver (with php)
-- download Sencha Touch http://www.sencha.com/products/touch/
-- rename the whole senchat touch download folder to "sencha-touch" and move it to your root directory
-- create an "media" folder in the root directory of your webserver and put some iPad ready mp4s into it
+- get TochScroll into your root directory: git http://github.com/davidaurelio/TouchScroll.git
+- get the latest jQuery Version: curl -O http://code.jquery.com/jquery-1.4.2.min.js
 - rename config.sample.inc.php to config.inc.php and configure it
+- create an "media" folder in the root directory of your media installation and put some iPad ready mp4s into it
+- create an "tvshow" folder in the root directory of your media installation and create some folders in it - one for every tv show
+	- put an file "banner.jpg" into each of these folders for every tv show. You may get banners e.g. here: http://thetvdb.com/
+	- put some tv shows into every folder. make sure it has an mp4 extension and an S02E12 like season / episode tag in it
 - fire up index.html on your iPad
-- see the very first roots of an lovely Media Center based uppon Sencha Touch Kitchensink example
-- see how nothing happends at all, because this is just a very early not even prototype release
-- help to create the wonderfull world of tomorrow.
+- you should the banners for every tv show
