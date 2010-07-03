@@ -2,14 +2,8 @@
 
 require_once('../config.inc.php');
 
-function tvShowSort($a, $b) {
-	return strcmp($a->title, $b->title);
-}
+$tvShows = TvShowLib::getAllTvShows();
 
-function tvShowEpisodeSort($a, $b) {
-	return strcmp($a->orderBy, $b->orderBy);
-}
-
-echo json_encode($tvShows);
+echo json_encode(TvShowLib::jsonPrepare($tvShows));
 
 ?>

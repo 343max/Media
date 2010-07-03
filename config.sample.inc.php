@@ -9,7 +9,7 @@ define('mediahost', 'http://localhost/');
 define('mediaurl', mediahost . 'media/');
 define('sitename', 'Media');
 
-ini_set('include_path', ini_get('inlcude_path') . ':' . dirname(__FILE__));
+define('cachepath', dirname(__FILE__) . '/cache/');
 
 define('prowlUser', 'your prowl username');
 define('prowlPassword', 'your prowl password');

@@ -8,8 +8,6 @@
 
 $().ready(function() {
 	$.getJSON('ajax/tvshows.php', function(data) {
-		//console.dir(data);
-
 		$tvShowList = $('#tvShowList');
 
 		$.each(data, function() {
@@ -18,34 +16,54 @@ $().ready(function() {
 			var li = $('<li>').append($('<span>').addClass('label').text(this.title));
 			if(this.banner) li.addClass('hasBanner').css('background-image', 'url(' + this.banner + ')');
 
-			li.click(function() {
-				var $this = $(this);
+			var lastClick = 0;
 
-				console.log('xxx');
+			li.bind('click', function() {
+				// TouchScroll sends click events twice, let's catch this
+				var now = (new Date()) - 0;
+				if(now - 10 <= lastClick) return;
+				lastClick = now;
+
+				var $this = $(this);
 
 				$this.addClass('active');
 
 				var table = $('<table>').addClass('episodes');
 
-				$.each(show.episodes, function() {
-					//console.dir(this);
+				var episodeRows = {};
 
+				$.each(show.episodes, function() {
 					var episode = this;
 
-					table.append(
-						$('<tr>').append(
-							$('<td>').addClass('episodeId').text(episode.orderBy),
-							$('<td>').addClass('episodeTitle').text(episode.title)
+					var row = $('<tr>').append(
+							$('<td>').addClass('id').text(episode.orderBy),
+							$('<td>').addClass('title').text(episode.provisionalTitle),
+							$('<td>').addClass('airDate')
 						).click(function() {
 							document.location.href = episode.url;
-						})
-					);
+						});
 
+					episodeRows[episode.id] = row;
+
+					table.append(row);
 				});
+
+				$.getJSON('ajax/episodeguide.php', {showname: show.title}, function(episodeGuides) {
+					$.each(episodeRows, function(episodeId, tableRow) {
+						if(!episodeGuides[episodeId]) {
+							return;
+						}
+
+						var episodeInfo = episodeGuides[episodeId];
+
+						tableRow.find('.title').text(episodeInfo.title);
+						tableRow.find('.airDate').text(episodeInfo.airDate.day + '.' + episodeInfo.airDate.month + '.' + episodeInfo.airDate.year);
+					});
+				})
 
 				$('body').append(table);
 
-				return true;
+				return false;
 			});
 
 			$tvShowList.append(li);

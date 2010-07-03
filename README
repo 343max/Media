@@ -6,5 +6,6 @@
 - create an "tvshow" folder in the root directory of your media installation and create some folders in it - one for every tv show
 	- put an file "banner.jpg" into each of these folders for every tv show. You may get banners e.g. here: http://thetvdb.com/
 	- put some tv shows into every folder. make sure it has an mp4 extension and an S02E12 like season / episode tag in it
+- create an "cache" folder in the root directory and chmod 777 it
 - fire up index.html on your iPad
 - you should the banners for every tv show

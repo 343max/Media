@@ -20,31 +20,73 @@ class EpguidesComParser {
 	}
 
 	function getRawEpisodeInfo() {
-		$html = file_get_contents($this->getShowInformationUrl());
-		if(!$html) throw new Exception('Could not fetch Episode Info from server');
-		$data = preg_replace('/<\\/pre>.*/s', '', preg_replace('/.*<pre>/s', '', $html));
+		$data = WebCache::getUrl($this->getShowInformationUrl(), 24 * 3600);
+		if(!$data) throw new Exception('Could not fetch Episode Info from server');
+
+		$data = substr($data, strpos($data, '<pre>') + 5);
+		$data = substr($data, 0, strpos($data, '</pre>'));
+
 		return $data;
 	}
 
+	static function monthNum($monthName) {
+		$monthNums = array(
+			'Jan' => '01',
+			'Feb' => '02',
+			'Mar' => '03',
+			'Apr' => '04',
+			'Mai' => '05',
+			'Jun' => '06',
+			'Jul' => '07',
+			'Aug' => '08',
+			'Sep' => '09',
+			'Oct' => '10',
+			'Nov' => '11',
+			'Dec' => '12'
+		);
+
+		return @$monthNums[$monthName];
+	}
+
 	function getEpisodeInfo() {
-		if(!preg_match_all("/^([0-9]+)\\s+([0-9-]+)\\s*([0-9A-Za-z\\/]+).*href=[\'\"]([^\'\"]*)[^>]*>([^<]+)/m", $this->getRawEpisodeInfo(), $matches, PREG_SET_ORDER)) {
+		if(!preg_match_all("/^([0-9]+).*/m", $this->getRawEpisodeInfo(), $matches, PREG_SET_ORDER)) {
 			throw new Exception('No Episode Information found');
 		}
-
-		#var_dump($matches);
 
 		$episodes = array();
 
 		foreach($matches as $match) {
 			$episode = (object)null;
 
-			$episode->number = $match[1];
-			$episode->id = $match[2];
-			$episode->airDate = $match[3];
-			$episode->infoUrl = $match[4];
-			$episode->title = $match[5];
+			$text = $match[0];
 
-			$episodes[$episode->id] = $episode;
+			$episode->number = (int)trim(substr($text, 0, 7));
+			$episode->productionNumber = trim(substr($text, 17, 10));
+
+			$airDate = trim(substr($text, 27, 12));
+			$year = (int)substr($airDate, 7,2);
+
+			$episode->airDate = array(
+				'raw' => $airDate,
+				'day' => substr($airDate, 0, 2),
+				'month' => self::monthNum(substr($airDate, 3,3)),
+				'year' => ($year > 40 ? $year + 1900 : $year + 2000)
+			);
+
+			if(preg_match('/href=[\'\"]([^\'\"]*)[^>]*>([^<]+)/', substr($text, 39), $titleMatch)) {
+				$episode->infoUrl = $titleMatch[1];
+				$episode->title = $titleMatch[2];
+			}
+
+			if(!preg_match('/([0-9]+)-([0-9]+)/', trim(substr($text, 7, 10)), $idMatch)) {
+				$id = trim(substr($text, 7, 10));
+			} else {
+				$id = (int)$idMatch[1] . '-' . (int)$idMatch[2];
+			}
+
+			$episode->id = $id;
+			$episodes[$id] = $episode;
+			$episodes[$episode->airDate['year'] . '.' . $episode->airDate['month'] . '.' . $episode->airDate['day']] = $episode;
 		}
 
 		return $episodes;
