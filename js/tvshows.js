@@ -20,6 +20,7 @@ $().ready(function() {
 
 			li.bind('click', function() {
 				// TouchScroll sends click events twice, let's catch this
+
 				var now = (new Date()) - 0;
 				if(now - 10 <= lastClick) return;
 				lastClick = now;
@@ -61,9 +62,7 @@ $().ready(function() {
 					});
 				})
 
-				$('body').append(table);
-
-				return false;
+				displayAsOverlay(table);
 			});
 
 			$tvShowList.append(li);
