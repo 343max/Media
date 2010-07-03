@@ -29,11 +29,11 @@ ul#tvShowList li.active span.label {
 	display: none;
 }
 
-ul#tvShowList li table.episodes {
+table.episodes {
+	position: absolute;
+
 	background-color: white;
-	padding: 0;
-	font-size: 18px;
-	width: 550px;
+	font-size: 13px;
 	margin-left: auto;
 	margin-right: auto;
 	top: 10px;
@@ -41,11 +41,27 @@ ul#tvShowList li table.episodes {
 	box-shadow: 0 10px 10px rgba(0,0,0,0.5);
 	-webkit-box-shadow: 0 10px 10px rgba(0,0,0,0.5);
 
-	display: none;
+	width: 700px;
+	left: 162px;
+
+	border: 4px solid lightgrey;
+
+	border-spacing: 0;
 }
 
-ul#tvShowList li.active table.episodes {
-	display: block;
+table.episodes td {
+	border-bottom: 1px solid lightgrey;
+	padding: 8px;
+	margin: 0;
+}
+
+table.episodes tr {
+	margin: 0;
+	padding: 0;
+}
+
+table.episodes tr:nth-child(even) {
+	background-color: #f6f6f6;
 }
 
 div.videoplayer {
