@@ -30,11 +30,19 @@ class TvShowEpisode {
 		$thisJson->provisionalTitle = $this->getProvisionalTitle();
 		$thisJson->orderBy = $this->getFileName();
 
+		// 1x01 format
+		if(preg_match('/([0-9]{1,2})x([0-9]{1,2})/', $this->getFileName(), $match)) {
+			$thisJson->season = (int)$match[1];
+			$thisJson->episode = (int)$match[2];
+			$thisJson->orderBy = 'S' . str_pad($thisJson->season, 2, '0', STR_PAD_LEFT) . 'E' . str_pad($thisJson->episode, 2, '0', STR_PAD_LEFT);
+			$thisJson->id = (int)$match[1] . '-' . (int)$match[2];
+		}
+
 		// S01E01 format
 		if(preg_match('/S([0-9]{1,2})E([0-9]{1,2})/', $this->getFileName(), $match)) {
 			$thisJson->season = (int)$match[1];
 			$thisJson->episode = (int)$match[2];
-			$thisJson->orderBy = $match[0];
+			$thisJson->orderBy = 'S' . str_pad($thisJson->season, 2, '0', STR_PAD_LEFT) . 'E' . str_pad($thisJson->episode, 2, '0', STR_PAD_LEFT);
 			$thisJson->id = (int)$match[1] . '-' . (int)$match[2];
 		}
 
@@ -48,8 +56,9 @@ class TvShowEpisode {
 
 		//1of12 format
 		if(preg_match('/([0-9]{1,2})of([0-9]{1,2})/', $this->getFileName(), $match)) {
+			$thisJson->season = 1;
 			$thisJson->episode = (int)$match[1];
-			$thisJson->orderBy = $match[0];
+			$thisJson->orderBy = 'S' . str_pad($thisJson->season, 2, '0', STR_PAD_LEFT) . 'E' . str_pad($thisJson->episode, 2, '0', STR_PAD_LEFT);
 			$thisJson->id = '1-' . (int)$match[1];
 		}
 

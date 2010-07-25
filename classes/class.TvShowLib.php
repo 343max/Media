@@ -1,15 +1,24 @@
 <?php
 
 class TvShowLib {
+	private static $tvShows = null;
 
 	static function tvShowSort($a, $b) {
 		return strcmp($a->getTitle(), $b->getTitle());
 	}
 
+	/**
+	 * @static
+	 * @return TvShow[]
+	 */
 	static function getAllTvShows() {
+		if(is_array(self::$tvShows)) {
+			return self::$tvShows;
+		}
+
 		$showDir = dir(tvshowsdir);
 
-		$tvShows = array();
+		self::$tvShows = array();
 
 		while (false !== ($tvShowFile = $showDir->read())) {
 			if(preg_match("/^\\./", $tvShowFile)) continue;
@@ -17,12 +26,12 @@ class TvShowLib {
 
 			$tvShow = new TvShow($tvShowFile);
 
-			$tvShows[] = $tvShow;
+			self::$tvShows[] = $tvShow;
 		}
 
-		usort($tvShows, 'TvShowLib::tvShowSort');
+		usort(self::$tvShows, 'TvShowLib::tvShowSort');
 
-		return $tvShows;
+		return self::$tvShows;
 	}
 
 	/**
@@ -38,5 +47,17 @@ class TvShowLib {
 		}
 
 		return $jsonPrepare;
+	}
+
+	static function getShowForFilename($fileName) {
+		$tvShows = self::getAllTvShows();
+		$cleanName = strtolower(preg_replace("/[^a-zA-Z0-9]/", "", basename($fileName)));
+
+
+		foreach($tvShows as $tvShow) {
+			if(strpos($cleanName, $tvShow->cleanName()) !== false) {
+				return $tvShow;
+			}
+		}
 	}
 }

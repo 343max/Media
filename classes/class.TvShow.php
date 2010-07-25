@@ -14,6 +14,10 @@ class TvShow {
 		$this->dirName = $dirName;
 	}
 
+	public function cleanName() {
+		return strtolower(preg_replace("/[^a-zA-Z0-9]/", "", $this->dirName));
+	}
+
 	public function getTitle() {
 		return $this->dirName;
 	}
