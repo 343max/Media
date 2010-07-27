@@ -1,0 +1,13 @@
+p.progress {
+	border: 1px solid rgba(0,0,0,0.4);
+	height: 6px;
+	-webkit-border-radius: 4px;
+	background: -webkit-gradient(linear, 0 0, 0 100%, from(#bababa), to(#f9f9f9));
+}
+
+p.progress span {
+	display: block;
+	height: 6px;
+	background: -webkit-gradient(linear, 0 0, 0 100%, from(#295cb1), to(#6da9f7));
+	-webkit-transition: width 0.5s linear;
+}

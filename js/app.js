@@ -17,4 +17,5 @@ $('ul#nav li').live('click', function() {
 
 $().ready(function() {
 	$('ul#nav li:first-child').click();
+	//$('ul#nav li.progress').click();
 });

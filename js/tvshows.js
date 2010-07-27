@@ -6,66 +6,72 @@
  * To change this template use File | Settings | File Templates.
  */
 
-$().ready(function() {
-	$.getJSON('ajax/tvshows.php', function(data) {
-		$tvShowList = $('#tvShowList');
+(function() {
+	var loadTvShows = function() {
+		$('ul#nav li.tvshows').die('click', loadTvShows);
 
-		$.each(data, function() {
-			var show = this;
+		$.getJSON('ajax/tvshows.php', function(data) {
+			$tvShowList = $('#tvShowList');
 
-			var li = $('<li>').append($('<span>').addClass('label').text(this.title));
-			if(this.banner) li.addClass('hasBanner').css('background-image', 'url(' + this.banner + ')');
+			$.each(data, function() {
+				var show = this;
 
-			var lastClick = 0;
+				var li = $('<li>').append($('<span>').addClass('label').text(this.title));
+				if(this.banner) li.addClass('hasBanner').css('background-image', 'url(' + this.banner + ')');
 
-			li.bind('click', function() {
-				// TouchScroll sends click events twice, let's catch this
+				var lastClick = 0;
 
-				var now = (new Date()) - 0;
-				if(now - 10 <= lastClick) return;
-				lastClick = now;
+				li.bind('click', function() {
+					// TouchScroll sends click events twice, let's catch this
 
-				var $this = $(this);
+					var now = (new Date()) - 0;
+					if(now - 10 <= lastClick) return;
+					lastClick = now;
 
-				$this.addClass('active');
+					var $this = $(this);
 
-				var table = $('<table>').addClass('episodes');
+					$this.addClass('active');
 
-				var episodeRows = {};
+					var table = $('<table>').addClass('episodes');
 
-				$.each(show.episodes, function() {
-					var episode = this;
+					var episodeRows = {};
 
-					var row = $('<tr>').append(
-							$('<td>').addClass('id').text(episode.orderBy),
-							$('<td>').addClass('title').text(episode.provisionalTitle),
-							$('<td>').addClass('airDate')
-						).click(function() {
-							document.location.href = episode.url;
+					$.each(show.episodes, function() {
+						var episode = this;
+
+						var row = $('<tr>').append(
+								$('<td>').addClass('id').text(episode.orderBy),
+								$('<td>').addClass('title').text(episode.provisionalTitle),
+								$('<td>').addClass('airDate')
+							).click(function() {
+								document.location.href = episode.url;
+							});
+
+						episodeRows[episode.id] = row;
+
+						table.append(row);
+					});
+
+					$.getJSON('ajax/episodeguide.php', {showname: show.title}, function(episodeGuides) {
+						$.each(episodeRows, function(episodeId, tableRow) {
+							if(!episodeGuides[episodeId]) {
+								return;
+							}
+
+							var episodeInfo = episodeGuides[episodeId];
+
+							tableRow.find('.title').text(episodeInfo.title);
+							tableRow.find('.airDate').text(episodeInfo.airDate.day + '.' + episodeInfo.airDate.month + '.' + episodeInfo.airDate.year);
 						});
+					})
 
-					episodeRows[episode.id] = row;
-
-					table.append(row);
+					displayAsOverlay(table);
 				});
 
-				$.getJSON('ajax/episodeguide.php', {showname: show.title}, function(episodeGuides) {
-					$.each(episodeRows, function(episodeId, tableRow) {
-						if(!episodeGuides[episodeId]) {
-							return;
-						}
-
-						var episodeInfo = episodeGuides[episodeId];
-
-						tableRow.find('.title').text(episodeInfo.title);
-						tableRow.find('.airDate').text(episodeInfo.airDate.day + '.' + episodeInfo.airDate.month + '.' + episodeInfo.airDate.year);
-					});
-				})
-
-				displayAsOverlay(table);
+				$tvShowList.append(li);
 			});
-
-			$tvShowList.append(li);
 		});
-	});
-});
+	};
+
+	$('ul#nav li.tvshows').live('click', loadTvShows);
+})();

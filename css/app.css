@@ -32,3 +32,38 @@ div.panel {
 	width: 659px;
 	margin-left: 321px;
 }
+
+li span.counter {
+	margin-top: -10px;
+	margin-left: 3px;
+	font-size: 9px;
+	border: 3px solid #d3d3d3;
+	color: #d3d3d3;
+	display: inline-block;
+	min-width: 11px;
+	-webkit-border-radius: 11px;
+	text-align: center;
+	text-shadow: none;
+	padding: 1px;
+	background-color: white;
+}
+
+li.active span.counter {
+	color: white;
+	border-color: white;
+	background: -webkit-gradient(linear, 0 0, 0 100%, from(#f3afb2), to(#dd1923));
+	-webkit-box-shadow: 0 0 5px rgba(221,25,35,0.6);
+	-webkit-animation-name: pulse;
+	-webkit-animation-duration: 0.6s;
+	-webkit-animation-iteration-count: 10;
+	-webkit-animation-direction: alternate;
+}
+
+@-webkit-keyframes pulse {
+	from {
+		-webkit-box-shadow: 0 0 0 rgba(221,25,35,0);
+	}
+	to {
+		-webkit-box-shadow: 0 0 8px rgba(221,25,35,0.7);
+	}
+}
