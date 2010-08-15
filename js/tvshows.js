@@ -1,10 +1,4 @@
-/**
- * Created by IntelliJ IDEA.
- * User: max
- * Date: 29.06.2010
- * Time: 23:39:53
- * To change this template use File | Settings | File Templates.
- */
+
 
 (function() {
 	var loadTvShows = function() {
@@ -35,6 +29,7 @@
 					var table = $('<table>').addClass('episodes');
 
 					var episodeRows = {};
+					var episodeIds = [];
 
 					$.each(show.episodes, function() {
 						var episode = this;
@@ -48,11 +43,12 @@
 							});
 
 						episodeRows[episode.id] = row;
+						episodeIds.push(episode.id);
 
 						table.append(row);
 					});
 
-					$.getJSON('ajax/episodeguide.php', {showname: show.title}, function(episodeGuides) {
+					$.getJSON('ajax/episodeguide.php', {showname: show.title, episodes: episodeIds.join(';')}, function(episodeGuides) {
 						$.each(episodeRows, function(episodeId, tableRow) {
 							if(!episodeGuides[episodeId]) {
 								return;

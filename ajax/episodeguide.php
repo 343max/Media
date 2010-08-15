@@ -9,9 +9,10 @@
 require_once('../config.inc.php');
 
 $tvShowName = $_GET['showname'];
+$onlyEpisodes = preg_split('/;/', @$_GET['episodes']);
 
 $episodeGuide = new EpguidesComParser($tvShowName);
 
-echo json_encode($episodeGuide->getEpisodeInfo());
+echo json_encode($episodeGuide->getEpisodeInfo($onlyEpisodes));
 
 ?>
