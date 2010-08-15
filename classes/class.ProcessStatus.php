@@ -3,12 +3,12 @@
 class ProcessStatus {
 	public $id = null;
 	public $processedObject = null;
-	public $percentDone = 0;
+	public $percentDone = -1;
 	public $processName = '';
 
-	public $timeLeft = 0;
-	public $totalTime = 0;
-	public $timeElapsed = 0;
+	public $timeLeft = -1;
+	public $totalTime = -1;
+	public $timeElapsed = -1;
 
 	public $currentSpeed = '';
 
@@ -67,7 +67,7 @@ class ProcessStatus {
 		return tmpdir . $this->id . '_process_status.json';
 	}
 
-	static function timeToSeconds($time) {
+	static function timeDelimitedByColonToSeconds($time) {
 		$match = preg_split('/:/', $time);
 
 		$l = count($match);
@@ -75,6 +75,16 @@ class ProcessStatus {
 		$seconds = (int)$match[$l - 1];
 		$seconds += (int)$match[$l - 2] * 60;
 		$seconds += (int)$match[$l - 3] * 3600;
+
+		return $seconds;
+	}
+
+	static function timeDelimitedByHMSToSeconds($time) {
+		if(!preg_match("/([0-9]+)h([0-9]+)m([0-9]+)s/", $time, $match)) {
+			return -1;
+		}
+
+		$seconds = (int)$match[1] * 3600 + (int)$match[2] * 60 + (int)$match[3];
 
 		return $seconds;
 	}

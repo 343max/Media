@@ -9,5 +9,5 @@ p.progress span {
 	display: block;
 	height: 6px;
 	background: -webkit-gradient(linear, 0 0, 0 100%, from(#295cb1), to(#6da9f7));
-	-webkit-transition: width 0.5s linear;
+	-webkit-transition: width 1s linear;
 }

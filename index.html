@@ -6,35 +6,35 @@
 	<title>Media</title>
 	<link rel="stylesheet" href="css/app.css">
 	<link rel="stylesheet" href="css/tvshows.css">
+	<link rel="stylesheet" href="css/convert.css">
 	<link rel="stylesheet" href="css/progress.css">
 	<link rel="stylesheet" href="css/overlay.css">
-	<link rel="stylesheet" href="TouchScroll/src/touchscroll.css">
+	<link rel="stylesheet" href="external/TouchScroll/src/touchscroll.css">
 	<script type="text/javascript" src="jquery-1.4.2.min.js"></script>
-	<script type="text/javascript" src="TouchScroll/dist/touchscroll.min.js"></script>
+	<script type="text/javascript" src="external/css-beziers/src/css-beziers.js"></script>
+	<script type="text/javascript" src="external/TouchScroll/dist/touchscroll.min.js"></script>
 	<script type="text/javascript" src="js/overlay.js"></script>
 	<script type="text/javascript" src="js/app.js"></script>
 	<script type="text/javascript" src="js/tvshows.js"></script>
 	<script type="text/javascript" src="js/progress.js"></script>
 	<script type="text/javascript" src="js/convert.js"></script>
+	<meta name="apple-mobile-web-app-capable" content="yes" />
 </head>
 <body>
 
 <ul id="nav">
 	<li panel="tvshows" class="tvshows">TV Shows</li>
 	<li panel="convert" class="convert">Convert Media</li>
-	<li panel="progress" class="progress">Progress<span class="counter">2</span></li>
+	<li panel="progress" class="progress">Progress<!-- <span class="counter">2</span> --></li>
 </ul>
 
 <div class="panel" id="tvshows">
 	<ul id="tvShowList"></ul>
 </div>
 <div class="panel" id="movies">no movies yet</div>
-<div class="panel" id="convert">nothing to convert yet</div>
+<div class="panel" id="convert"><ul id="convertList"></ul></div>
 <div class="panel" id="progress">
-	<ul id="progress">
-		<li><p>Downloading...</p>
-			<p class="progress"><span style="width: 30%"></span></p>
-		</li>
+	<ul class="progress">
 	</ul>
 </div>
 </body>

@@ -34,7 +34,7 @@ for($i = 1; $i < count($_SERVER['argv']); $i++) {
 	}
 
 	# -e x264
-	$cmd = 'HandBrakeCLI --cpu 8 -X 854 -Y 480 -i "' . $fileName . '" -o "' . tmpdir . $mp4name . '"';
+	$cmd = 'HandBrakeCLI --optimize --cpu 8 -X 854 -Y 480 -i "' . $fileName . '" -o "' . tmpdir . $mp4name . '"';
 
 	passthru($cmd);
 
@@ -43,4 +43,3 @@ for($i = 1; $i < count($_SERVER['argv']); $i++) {
 	$notification = new ProwlNotification(prowlUser, prowlPassword);
 	$notification->send(sitename, 'Got one!', $growlMessage);
 }
-
