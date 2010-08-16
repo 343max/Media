@@ -41,7 +41,9 @@ div.tvshow {
 	width: 700px;
 	left: 162px;
 
-	-webkit-border-radius: 9px 9px 0 0;
+	-webkit-border-top-left-radius: 9px;
+	-webkit-border-top-right-radius: 9px;
+
 	background-color: white;
 }
 

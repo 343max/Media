@@ -39,7 +39,12 @@ h1 {
 	padding: 9px;
 	background: -webkit-gradient(linear, 0 0, 0 100%, from(#464749), to(#1e1c1c));
 	color: white;
-	-webkit-border-radius: 9px 9px 0 0;
+
+	-webkit-border-top-left-radius: 9px;
+	-webkit-border-top-right-radius: 9px;
+	
+	border: 1px solid #1e1c1c;
+
 }
 
 div.panel {
