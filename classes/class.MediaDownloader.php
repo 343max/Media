@@ -19,7 +19,7 @@ class MediaDownloader implements BackgroundWorker {
 	}
 
 	private function getCurlCommand() {
-		return 'curl -o ' . $this->getDestinationPath() . ' ' . $this->fileUrl . ' 2>&1';
+		return 'curl -o "' . $this->getDestinationPath() . '" "' . $this->fileUrl . '" 2>&1';
 	}
 
 	private function writeProgress($curlOutput) {

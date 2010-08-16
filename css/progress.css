@@ -25,14 +25,17 @@ ul.progress li p.status {
 p.progress {
 	border: 1px solid #fff;
 	height: 12px;
-	-webkit-border-radius: 8px;
+	-webkit-background-clip: padding-box;
+	
+	-webkit-border-radius: 6px;
 	background: -webkit-gradient(linear, 0 0, 0 60%, from(#9a9c9f), to(#d8d9db));
+	overflow: hidden;
 }
 
 p.progress span {
 	display: block;
 	height: 12px;
-	-webkit-border-radius: 8px;
+	-webkit-border-radius: 6px;
 	background: -webkit-gradient(linear, 0 0, 0 100%, from(#59a5d1), to(#2b66ab));
 	-webkit-transition: width 1s linear;
 }

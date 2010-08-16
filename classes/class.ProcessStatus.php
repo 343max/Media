@@ -56,7 +56,7 @@ class ProcessStatus {
 	}
 
 	public function complete() {
-		unlink($this->getFilepath());
+		if(file_exists($this->getFilepath())) unlink($this->getFilepath());
 	}
 
 	private function toJson() {
