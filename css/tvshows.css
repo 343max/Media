@@ -8,9 +8,9 @@ ul#tvShowList li {
 	
 	list-style-type: none;
 	margin: 0;
-	height: 122px;
-	background-size: 659px 122px;
-	-webkit-background-size: 659px 122px;
+	height: 130px;
+	background-size: 703px 130px;
+	-webkit-background-size: 703px 130px;
 	padding-right: 20px;
 }
 
@@ -29,22 +29,26 @@ ul#tvShowList li.active span.label {
 	display: none;
 }
 
-table.episodes {
+div.tvshow {
 	position: absolute;
-
-	background-color: white;
-	font-size: 13px;
 	margin-left: auto;
 	margin-right: auto;
 	top: 10px;
-	border: 1px solid lightgrey;
+
 	box-shadow: 0 10px 10px rgba(0,0,0,0.5);
 	-webkit-box-shadow: 0 10px 10px rgba(0,0,0,0.5);
 
 	width: 700px;
 	left: 162px;
 
-	border: 4px solid lightgrey;
+	-webkit-border-radius: 9px 9px 0 0;
+	background-color: white;
+}
+
+table.episodes {
+	width: 100%;
+
+	font-size: 13px;
 
 	border-spacing: 0;
 }

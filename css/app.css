@@ -1,12 +1,18 @@
 body {
 	margin: 0;
 	font-family: "Helvetica Neue", Helvetica, Arial;
+
+	/*
+	background-image: url(../i/dummy.png);
+	background-repeat: no-repeat;
+	background-position: 0 -78px;
+	*/
 }
 
 
 ul#nav {
 	width: 320px;
-	height: 660px;
+	height: 690px;
 	padding: 0;
 	margin: 0;
 	border-right: 1px solid darkgrey;
@@ -22,14 +28,23 @@ ul#nav li {
 }
 
 ul#nav li.active {
-	background-color: #7487ae;
 	color: white;
-	text-shadow: 0 2px 2px #555;
+	text-shadow: 0 -1px 2px #555;
+	background: -webkit-gradient(linear, left top, left bottom, from(#5aa6d1), to(#2a64aa));
+}
+
+h1 {
+	margin: 0;
+	font-size: 1em;
+	padding: 9px;
+	background: -webkit-gradient(linear, 0 0, 0 100%, from(#464749), to(#1e1c1c));
+	color: white;
+	-webkit-border-radius: 9px 9px 0 0;
 }
 
 div.panel {
-	height: 660px;
-	width: 659px;
+	height: 690px;
+	width: 703px;
 	margin-left: 321px;
 }
 

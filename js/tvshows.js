@@ -10,8 +10,8 @@
 			$.each(data, function() {
 				var show = this;
 
-				var li = $('<li>').append($('<span>').addClass('label').text(this.title));
-				if(this.banner) li.addClass('hasBanner').css('background-image', 'url(' + this.banner + ')');
+				var li = $('<li>').append($('<span>').addClass('label').text(show.title));
+				if(show.banner) li.addClass('hasBanner').css('background-image', 'url(' + show.banner + ')');
 
 				var lastClick = 0;
 
@@ -26,7 +26,13 @@
 
 					$this.addClass('active');
 
+					var div = $('<div>').addClass('tvshow');
+
+					div.append($('<h1>').text(show.title));
+
 					var table = $('<table>').addClass('episodes');
+
+					div.append(table);
 
 					var episodeRows = {};
 					var episodeIds = [];
@@ -61,7 +67,7 @@
 						});
 					})
 
-					displayAsOverlay(table);
+					displayAsOverlay(div);
 				});
 
 				$tvShowList.append(li);
