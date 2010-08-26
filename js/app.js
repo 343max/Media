@@ -3,7 +3,7 @@ $().ready(function() {
 	var scroller = new TouchScroll(scrollable, { elastic: true });
 
 	$('.panel').each(function(){
-		var scroller = new TouchScroll(this, { elastic: true });		
+		this.scroller = new TouchScroll(this, { elastic: true });
 	});
 });
 
@@ -12,7 +12,12 @@ $('ul#nav li').live('click', function() {
 	$(this).addClass('active');
 
 	$('div.panel').hide();
-	$('div#' + $(this).attr('panel')).show();
+	var panel = $('div#' + $(this).attr('panel'));
+	panel.show();
+	window.setTimeout(function() {
+		panel[0].scroller.setupScroller();
+	}, 50);
+	//var scroller = new TouchScroll(panel[0], { elastic: true });
 });
 
 $().ready(function() {

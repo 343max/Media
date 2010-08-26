@@ -3,15 +3,20 @@
 class MediaDownloader implements BackgroundWorker {
 	private $fileUrl = '';
 	private $fileName = '';
+	private $userName = null;
+	private $password = null;
 
 	private $id = null;
 
-	public function __construct($fileUrl, $fileName = '', $id = '') {
+	public function __construct($fileUrl, $fileName = '', $id = '', $userName = null, $password = null) {
 		$this->fileUrl = $fileUrl;
 		if($fileName == '') $fileName = basename($this->fileUrl);
 		$this->fileName = $fileName;
 		if($id == '') $id = sha1($fileUrl);
 		$this->id = $id;
+
+		$this->userName = $userName;
+		$this->password = $password;
 	}
 
 	public function getDestinationPath() {
@@ -19,7 +24,7 @@ class MediaDownloader implements BackgroundWorker {
 	}
 
 	private function getCurlCommand() {
-		return 'curl -o "' . $this->getDestinationPath() . '" "' . $this->fileUrl . '" 2>&1';
+		return 'curl --location-trusted ' . ($this->userName ? '-u "' . $this->userName . ':' . $this->password . '" ' : '') . '-o "' . $this->getDestinationPath() . '" "' . $this->fileUrl . '" 2>&1';
 	}
 
 	private function writeProgress($curlOutput) {

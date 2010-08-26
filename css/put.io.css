@@ -1,0 +1,59 @@
+a.putioMovieFile {
+	display: block;
+	background-color: black;
+	
+	margin: 10px;
+
+	width: 330px;
+	height: 185px;
+
+	-webkit-background-size: auto 187px;
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+	float: left;
+	color: white;
+	text-align: center;
+	text-shadow: 0 0 3px #000;
+
+	-webkit-box-shadow: 0 3px 7px rgba(0,0,0,0.3);
+
+	position: relative;
+
+	opacity: 1;
+}
+
+a.putioMovieFile.converting {
+	-webkit-transition-property: all;
+	-webkit-transition-duration: 0.6s;
+
+	opacity: 0;
+}
+
+a.putioMovieFile.startFlying {
+	position: absolute;
+	margin: 0;
+
+	-webkit-box-shadow: none;
+
+	-webkit-transition-property: all;
+	-webkit-transition-duration: 0.6s;
+
+	-webkit-transform-origin: 0 0;
+	-webkit-transform: scale(1);
+}
+
+a.putioMovieFile.flying {
+	opacity: 0;
+	-webkit-transform: scale(0.2);
+}
+
+a.putioMovieFile span {
+	width: 320px;
+	bottom: 0;
+	display: block;
+	position: absolute;
+	margin: 5px;
+
+	font-weight: bold;
+	font-size: 15px;
+}

@@ -1,8 +1,9 @@
 <?php
 
-require_once('../config.inc.php');
+require_once('../../config.inc.php');
 
 $fileUrl = $_GET['url'];
+$fileName = $_GET['fileName'];
 
 if(!$fileUrl) {
 	die(json_encode(array('result' => 'no url given')));
@@ -10,7 +11,7 @@ if(!$fileUrl) {
 
 $pool = new BackgroundPool(serviceurl);
 
-$handler = new MediaHandler($fileUrl, null, filehost_username, filehost_password);
+$handler = new MediaHandler($fileUrl, $fileName, putio_apikey, putio_password);
 
 
 //$handler->runThread();

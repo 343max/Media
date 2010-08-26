@@ -2,18 +2,21 @@
 
 class MediaHandler implements BackgroundWorker {
 	private $fileUrl = null;
+	private $fileName = null;
+	private $userName = null;
+	private $password = null;
 
-	public function __construct($fileUrl, $userName = null, $password = null) {
-		if($userName != null) {
-			$fileUrl = preg_replace("/https?:\\/\\//", "\\0" . $userName . ":" . $password . "@", $fileUrl);
-		}
-
+	public function __construct($fileUrl, $fileName = null, $userName = null, $password = null) {
 		$this->fileUrl = $fileUrl;
+		$this->userName = $userName;
+		$this->password = $password;
+		$this->fileName = $fileName;
 	}
 
 	public function runThread() {
 		$id = sha1($this->fileUrl);
-		$downloader = new MediaDownloader($this->fileUrl, '', $id);
+
+		$downloader = new MediaDownloader($this->fileUrl, $this->fileName, $id, $this->userName, $this->password);
 		$downloader->runThread();
 		$downloader->synchronize();
 
@@ -22,6 +25,8 @@ class MediaHandler implements BackgroundWorker {
 		$converter->synchronize();
 
 		$tmpPath = $converter->getDestinationPath();
+
+		$tmpPath = '/tmp/media/Family.Guy.S08E21.PDTV.XviD-BiA.m4v';
 		$fileName = basename($tmpPath);
 
 		if($tvShow = TvShowLib::getShowForFilename($fileName)) {

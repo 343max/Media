@@ -29,7 +29,7 @@ class VideoConverter implements BackgroundWorker {
 		if(!preg_match("/([0-9]+\\.[0-9]+)\\s?%([^0-9]+([0-9]+\\.[0-9]+) fps[^0-9]+avg ([0-9]+\\.[0-9]+) fps[^0-9]+([0-9]+h[0-9]+m[0-9]+s))?/", $processOutput, $match))
 			return;
 
-		$progress = new ProcessStatus('convert', $this->id, $this->sourcePath, (int)$match[1]);
+		$progress = new ProcessStatus('convert', $this->id, preg_replace("/^.*\\//", "", $this->sourcePath), (int)$match[1]);
 
 		if($match[2]) {
 			$progress->setCurrentSpeed($match[3]);

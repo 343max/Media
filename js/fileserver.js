@@ -34,14 +34,14 @@
 	}
 
 	var showConvertableFiles = function() {
-		$('ul#nav li.convert').die('click', showConvertableFiles);
+		$('ul#nav li.fileserver').die('click', showConvertableFiles);
 
 		$.getJSON('ajax/externalfiles.php', function(data) {
 			data = data.sort(function(a, b) {
 				return b.timestamp - a.timestamp;
 			});
 			
-			var ul = $('#convertList');
+			var ul = $('div#fileserver ul.convertList');
 
 			$.each(data, function() {
 				var a = $('<a>').addClass('convertable');
@@ -67,5 +67,5 @@
 		});
 	};
 
-	$('ul#nav li.convert').live('click', showConvertableFiles);
+	$('ul#nav li.fileserver').live('click', showConvertableFiles);
 })();
