@@ -26,7 +26,6 @@ class MediaHandler implements BackgroundWorker {
 
 		$tmpPath = $converter->getDestinationPath();
 
-		$tmpPath = '/tmp/media/Family.Guy.S08E21.PDTV.XviD-BiA.m4v';
 		$fileName = basename($tmpPath);
 
 		if($tvShow = TvShowLib::getShowForFilename($fileName)) {
