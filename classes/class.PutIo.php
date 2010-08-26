@@ -63,10 +63,14 @@ class PutIo {
 	}
 
 	public function postCall($className, $methodName, $parameters = null) {
-		return $this->postRequest(self::apiHost, self::apiUrl . $className . '?method=' . $methodName, 'request=' . $this->getRequestString());
+		return $this->postRequest(self::apiHost, self::apiUrl . $className . '?method=' . $methodName, 'request=' . $this->getRequestString($parameters));
 	}
 
-	public function callFilesList() {
-		return $this->postCall('files', 'list');
+	public function callFilesList($parentId) {
+		$params = self::getEmptyObject();
+
+		if($parentId != 0) $params->parent_id = $parentId;
+
+		return $this->postCall('files', 'list', $params);
 	}
 }

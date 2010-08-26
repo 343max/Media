@@ -29,12 +29,14 @@
 		}, 50);
 	}
 
-	var fileList = function() {
+	var fileList = function(parentId) {
 		$('ul#nav li.putio').die('click', fileList);
 
-		$.getJSON('ajax/putio/files/list.php', function(data) {
-			console.dir(data);
+		var params = {};
+		parentId = parseInt(parentId);
+		if(parentId) params.parent_id = parentId;
 
+		$.getJSON('ajax/putio/files/list.php', params, function(data) {
 			files = data.response.results.sort(function(a, b) {
 				return parseInt(b.id) - parseInt(a.id);
 			});
@@ -42,8 +44,11 @@
 			var div = $('div#putio');
 
 			$.each(files, function() {
-				if(!this.content_type.match(/^video\//)) {
-					continue;
+				if(this.type == 'folder') {
+					fileList(this.id);
+				}
+				if(this.type != 'movie') {
+					return;
 				}
 
 				//console.dir(this);
@@ -68,34 +73,6 @@
 				div.append(a);
 			});
 
-
-			/*data = data.sort(function(a, b) {
-				return b.timestamp - a.timestamp;
-			});
-
-			var ul = $('div#fileserver ul.convertList');
-
-			$.each(data, function() {
-				var a = $('<a>').addClass('convertable');
-				a.text(unescape(this.url.replace(/.*\//g, '')));
-
-				var url = this.url;
-
-				var clickCount = 0;
-
-				a.bind('click', function() {
-					// TouchScroll sends click events twice, let's catch this
-
-					if(clickCount != 0) return;
-					clickCount++;
-
-					convertMedia(a, url);
-				});
-
-				var li = $('<li>').append(a);
-
-				ul.append(li);
-			});*/
 		});
 	};
 
